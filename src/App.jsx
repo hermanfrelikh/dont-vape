@@ -52,6 +52,7 @@ function App() {
 
   return (
     <>
+   
       <AppContext.Provider
         value={{
           timeDontVape,
@@ -77,6 +78,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppContext.Provider>
+    
     </>
   );
 }
