@@ -1,0 +1,13 @@
+.notFound{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: calc(50% - 250px);
+    margin-top: 30px;
+
+    &__link{
+        color: black;
+        font-size: 20px;
+    }
+}

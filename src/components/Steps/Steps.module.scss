@@ -1,0 +1,26 @@
+.steps {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &__item {
+    border: 1px #08080d solid;
+    list-style-type: none;
+    margin: 30px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 50%;
+  }
+  &__itemFinish {
+    @extend .steps__item;
+    color: white;
+    background-color: #08080d;
+  }
+}

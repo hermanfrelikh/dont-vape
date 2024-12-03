@@ -1,0 +1,34 @@
+.navigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 0;
+    overflow: auto;
+    width: 100%;
+    
+
+    @media screen and (max-width: 765px) {
+        justify-content: flex-start;
+    }
+
+    &__nav{
+        font-size: 24px;
+        margin: 25px;
+
+        border-radius: 10px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        padding: 5px;
+        box-shadow: -4px 3px 7px rgba(32, 29, 29, 0.46);
+
+    }
+    &__navActive{
+         background-color:  #08080D;
+         color: white;
+    }
+    &__link{
+        text-decoration: none;
+        color: black
+    }
+}

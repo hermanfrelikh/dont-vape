@@ -1,0 +1,19 @@
+.hello {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  &__name {
+    color: #1937a5;
+  }
+  &__text {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: lighter;
+  }
+  &__title {
+    margin: 0;
+  }
+}
