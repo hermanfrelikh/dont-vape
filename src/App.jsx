@@ -35,11 +35,14 @@ function App() {
     if (hours === 0 && days === 0 && minutes !== 0) {
       return(`${minutes} мин ${seconds} сек`);
     }
+    if (days === 0 && hours >= 2 && minutes !== 0) {
+      return(`${hours} час ${minutes} мин`);
+    }
     if (days === 0 && hours !== 0 && minutes !== 0) {
       return(`${hours} ч ${minutes} мин ${seconds} сек`);
     }
-    if (days === 0 && hours >= 2 && minutes !== 0) {
-      return(`${hours} час ${minutes} мин`);
+    if (days >= 30 && hours !== 0 && minutes !== 0) {
+      return(`${days} д`);
     }
     if (days >= 7 && hours !== 0 && minutes !== 0) {
       return(`${days} д ${hours} ч`);

@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Hello from "../../components/Hello/Hello";
 import Navigation from "../../components/Navigation/Navigation";
 import StartButton from "../../components/StartButton/StartButton";
-import ISmokedButton from "../../components/ISmokedButton/ISmokedButton";
+import IVapedButton from "../../components/IVapedButton/IVapedButton";
 import IVapeWindow from "../../components/IVapeWindow/IVapeWindow";
 import styles from "./Main.module.scss";
 import { useContext, useEffect, useState, useRef } from "react";
@@ -89,7 +89,7 @@ export default function Main() {
         <StartButton handleStart={handleStart} />
       ) : (
         <>
-          <ISmokedButton handleRestart={handleRestart} />
+          <IVapedButton handleRestart={handleRestart} />
           <h1 className={styles.main__timer}>{formatTime(timeDontVape)}</h1>
         </>
       )}
