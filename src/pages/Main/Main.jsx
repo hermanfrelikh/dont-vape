@@ -65,8 +65,6 @@ export default function Main() {
   const maxValue = 100;
   const partOfTheInterest = 100/(steps.length-1)
   
-  
-
 
   const interestDontVape = (timeDontVape) => {
     if (((timeDontVape / steps[steps.length-1].time)*100)<100){

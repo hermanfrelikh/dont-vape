@@ -30,22 +30,22 @@ function App() {
     const hours = Math.floor((time / 60 / 60) % 24);
     const days = Math.floor(time / 60 / 60 / 24);
     if (minutes === 0 && hours === 0 && days === 0) {
-      return(`${seconds} секунд`);
+      return(`${seconds} сек`);
     }
     if (hours === 0 && days === 0 && minutes !== 0) {
-      return(`${minutes} минут ${seconds} секунд`);
+      return(`${minutes} мин ${seconds} сек`);
     }
     if (days === 0 && hours !== 0 && minutes !== 0) {
-      return(`${hours} часов ${minutes} минут ${seconds} секунд`);
+      return(`${hours} ч ${minutes} мин ${seconds} сек`);
     }
     if (days === 0 && hours >= 2 && minutes !== 0) {
-      return(`${hours} часов ${minutes} минут`);
+      return(`${hours} час ${minutes} мин`);
     }
     if (days >= 7 && hours !== 0 && minutes !== 0) {
-      return(`${days} дней ${hours} часов`);
+      return(`${days} д ${hours} ч`);
     }
     if (days !== 0 && hours !== 0 && minutes !== 0) {
-      return(`${days} дней ${hours} часов ${minutes} минут`);
+      return(`${days} д ${hours} ч ${minutes} мин`);
     }
     
   }
