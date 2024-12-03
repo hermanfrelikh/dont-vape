@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import Pages from 'vite-plugin-pages';
 
 export default defineConfig({
+  base: '/dont-vape/', 
   plugins: [react(), Pages()],
   build: {
     outDir: 'dist',
