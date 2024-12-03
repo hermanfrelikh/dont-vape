@@ -1,16 +1,2 @@
-.main{
 
-    &__timer{
-        color: #1937a5;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-        font-size: 32px;
-        margin-top: 40px;
-
-        @media screen and (max-width: 640px) {
-            font-size: 28px;
-          }
-    }
-}
 

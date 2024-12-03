@@ -3,20 +3,20 @@ import styles from "./Navigation.module.scss";
 import { Link } from "react-router-dom";
 
 export default function Navigation() {
-  const [stateNavigation, setStateNavigation] = useState("map");
+  const [stateNavigation, setStateNavigation] = useState("statistics");
   return (
     <nav>
       <ul className={styles.navigation}>
         <Link to="" className={styles.navigation__link}>
           <li
-            onClick={() => setStateNavigation("map")}
+            onClick={() => setStateNavigation("statistics")}
             className={`${
-              stateNavigation === "map"
+              stateNavigation === "statistics"
                 ? `${styles.navigation__nav} ${styles.navigation__navActive}`
                 : styles.navigation__nav
             } `}
           >
-            Карта
+            Статистика
           </li>
         </Link>
         <Link to="/achievements" className={styles.navigation__link}>

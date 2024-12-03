@@ -1,13 +1,8 @@
 export const steps = [
     {
-        id:0,
-        title: "Старт",
-        time: 0,
-    },
-    {
         id:1,
         title: "2 часа",
-        time:2*60*60*1000,
+        time:60*1000,
     },
     {
         id:2,

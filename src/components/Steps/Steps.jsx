@@ -14,14 +14,14 @@ export default function Steps() {
           className={timeLeft > 0 || isRunning===false ? styles.steps__item : styles.steps__itemFinish}
           
           key={step.id}>
-            <h1>{step.title}</h1>
+          
+            <h1 className={styles.steps__itemTitle}>{step.title}</h1>
             {timeLeft > 0 ? (
               <>
-                <h2>Осталось: </h2>
-                <p>{formatTime(timeLeft)}</p>
+                <p className={styles.steps__itemTitle2}>Осталось: {formatTime(timeLeft)}</p>
               </>
             ) : (
-              <>{isRunning === false ? <h2>Начните</h2> : <h2>Готово</h2>}</>
+              <>{isRunning === false ? <h2>Начните</h2> : <p className={styles.steps__itemTitle2}>Готово</p>}</>
             )}
           </li>
         );

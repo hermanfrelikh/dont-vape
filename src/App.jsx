@@ -3,12 +3,12 @@ import Header from "./components/Header/Header";
 import Main from "./pages/Main/Main";
 import Login from "./pages/Login/Login";
 import Blog from "./pages/Blog/Blog";
-import Achievements from "./pages/Achievements/Achievements";
 import NotFound from "./pages/NotFound/NotFound";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
-import Map from "./pages/Map/Map";
+import Achievements from "./pages/Achievements/Achievements";
 import Settings from "./pages/Settings/Settings";
+import Statistics from "./pages/Statistics/Statistics";
 import { createContext, useEffect, useState } from "react";
 
 export const AppContext = createContext(0);
@@ -23,6 +23,7 @@ function App() {
     } else {
       setIsRunning(false);
     }
+    
   }, []);
   const formatTime = (time) => {
     const seconds = time % 60;
@@ -50,7 +51,6 @@ function App() {
     if (days !== 0 && hours !== 0 && minutes !== 0) {
       return(`${days} д ${hours} ч ${minutes} мин`);
     }
-    
   }
 
   return (
@@ -70,7 +70,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="" element={<Main />}>
-            <Route path="" element={<Map />} />
+            <Route path="" element={<Statistics />} />
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/blog" element={<Blog />} />
           </Route>

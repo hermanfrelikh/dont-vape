@@ -1,10 +1,11 @@
 .achievements{
     display: flex;
-    border: 1px red solid;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
     &__title{
-        
+        margin-top: 0px;
     }
+    
 }
