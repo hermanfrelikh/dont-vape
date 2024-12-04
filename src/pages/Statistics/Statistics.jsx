@@ -9,8 +9,8 @@ import { AppContext } from "../../App";
 import CircularProgressChart from "../../components/CircularProgressChart/CircularProgressChart";
 import { steps } from "../../data";
 
-export default function Statistics(){
-    const { timeDontVape, setTimeDontVape, isRunning, setIsRunning, formatTime } =
+export default function Statistics() {
+  const { timeDontVape, setTimeDontVape, isRunning, setIsRunning, formatTime } =
     useContext(AppContext);
   const intervalIdRef = useRef(null);
   const [stateIVapeWindow, setStateIVapeWindow] = useState(false);
@@ -58,46 +58,86 @@ export default function Statistics(){
   useEffect(() => {
     formatTime(timeDontVape);
     interestDontVape(timeDontVape * 1000);
+    interestCurrentStep(timeDontVape * 1000);
   }, [timeDontVape]);
 
-  const [counter, setCounter] = useState(35.02);
-  const maxValue = 100;
+  const [fullProgress, setFullProgress] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [titleCurrentStep, setTitleCurrentStep] = useState("");
 
-  const interestDontVape = (timeDontVape) => {
-    if (((timeDontVape / steps[steps.length-1].time)*100)<100){
-      setCounter((timeDontVape / steps[steps.length-1].time)*100)
+  const interestCurrentStep = (timeDontVape) => {
+    let previousStepTime = null;
+    let currentStepTime = null;
+
+    for (let i = 1; i < steps.length; i++) {
+      const a = () => {
+        previousStepTime = timeDontVape -steps[i-1].time;
+        currentStepTime = steps[i].time - steps[i-1].time;
+        setTitleCurrentStep(steps[i].title);
+      };
+
+      if (steps[i].time > timeDontVape) {
+        a();
+        break;
+      }
     }
-    else{
-      setCounter(100)
+
+    if ((previousStepTime / currentStepTime) * 100 < 100) {
+      setCurrentStep((previousStepTime / currentStepTime) * 100);
+    } else {
+      setCurrentStep(100);
     }
   };
-    return (
-        <>
-        <Hello />
+  const interestDontVape = (timeDontVape) => {
+    if ((timeDontVape / steps[steps.length - 1].time) * 100 < 100) {
+      setFullProgress((timeDontVape / steps[steps.length - 1].time) * 100);
+    } else {
+      setFullProgress(100);
+    }
+  };
+  return (
+    <>
+      <Hello />
       {stateIVapeWindow && (
         <IVapeWindow
           stateIVapeWindow={stateIVapeWindow}
           setStateIVapeWindow={setStateIVapeWindow}
         />
       )}
-       
-      
+
       {isRunning === false ? (
         <StartButton handleStart={handleStart} />
       ) : (
         <>
           <IVapedButton handleRestart={handleRestart} />
-          <h1 className={styles.main__timer}>Не курю: {formatTime(timeDontVape)}</h1>
+          <h1 className={styles.statistics__timer}>
+            Не курю: {formatTime(timeDontVape)}
+          </h1>
         </>
       )}
-     
+
       {isRunning === false ? (
         <></>
       ) : (
-        <CircularProgressChart value={counter} maxValue={maxValue} />
+        <div className={styles.statistics}>
+          <div className={styles.statistics__block}>
+            <h2 className={styles.statistics__title}>Текущая цель ({titleCurrentStep})</h2>
+            <p className={styles.statistics__p}>Общий прогресс в оздоровлении вашего организма</p>
+            <div className={styles.statistics__chart}>
+              <CircularProgressChart value={currentStep} maxValue={100} />
+            </div>
+          </div>
+          <div className={styles.statistics__block}>
+            <h2 className={styles.statistics__title}>Полный прогресс</h2>
+            <p className={styles.statistics__p}>Общий прогресс в оздоровлении вашего организма</p>
+            <div className={styles.statistics__chart}>
+              <CircularProgressChart value={fullProgress} maxValue={100} />
+            </div>
+          </div>
+        </div>
       )}
-      
+
       <Outlet />
-        </>
-    )
+    </>
+  );
 }

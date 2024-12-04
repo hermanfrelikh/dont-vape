@@ -1,4 +1,16 @@
-.main{
+.statistics{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0 250px;
+    flex-wrap: wrap;
+    @media screen and (max-width: 1300px) {
+        padding: 0 100px;
+      }
+      @media screen and (max-width: 900px) {
+        
+        padding: 0 0px;
+      }
 
     &__timer{
         color: #1937a5;
@@ -12,4 +24,27 @@
             font-size: 28px;
           }
     }
+    &__block{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    &__title{
+        font-size: 20px;
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        text-align:center;
+
+    }
+    &__p{
+        font-size: 16px;
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        text-align:center;
+        margin-top: 0px;
+    }
+
 }

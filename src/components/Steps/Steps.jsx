@@ -21,7 +21,7 @@ export default function Steps() {
                 <p className={styles.steps__itemTitle2}>Осталось: {formatTime(timeLeft)}</p>
               </>
             ) : (
-              <>{isRunning === false ? <h2>Начните</h2> : <p className={styles.steps__itemTitle2}>Готово</p>}</>
+              <>{isRunning === false ? <p className={styles.steps__itemTitle2}>Нажмите кнопку "Начать"</p> : <p className={styles.steps__itemTitle2}>Готово</p>}</>
             )}
           </li>
         );
