@@ -1,5 +1,6 @@
 import styles from "./Achievements.module.scss";
 import Steps from "../../components/Steps/Steps";
+import { steps } from "../../data";
 
 export default function Achievements() {
   return (

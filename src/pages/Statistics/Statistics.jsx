@@ -122,7 +122,7 @@ export default function Statistics() {
         <div className={styles.statistics}>
           <div className={styles.statistics__block}>
             <h2 className={styles.statistics__title}>Текущая цель ({titleCurrentStep})</h2>
-            <p className={styles.statistics__p}>Общий прогресс в оздоровлении вашего организма</p>
+            <p className={styles.statistics__p}>Прогресс вашей текущей цели</p>
             <div className={styles.statistics__chart}>
               <CircularProgressChart value={currentStep} maxValue={100} />
             </div>

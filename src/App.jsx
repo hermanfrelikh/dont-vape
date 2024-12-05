@@ -16,14 +16,17 @@ export const AppContext = createContext(0);
 function App() {
   const [timeDontVape, setTimeDontVape] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(localStorage.getItem("name") ? localStorage.getItem("name") : "");
   useEffect(() => {
     if (localStorage.getItem("isRunning")) {
       setIsRunning(localStorage.getItem("isRunning"));
     } else {
       setIsRunning(false);
     }
-    
+    const savedName = localStorage.getItem("name");
+    if (savedName) {
+      setName(savedName);
+    }
   }, []);
   const formatTime = (time) => {
     const seconds = time % 60;
@@ -31,31 +34,30 @@ function App() {
     const hours = Math.floor((time / 60 / 60) % 24);
     const days = Math.floor(time / 60 / 60 / 24);
     if (minutes === 0 && hours === 0 && days === 0) {
-      return(`${seconds} сек`);
+      return `${seconds} сек`;
     }
     if (hours === 0 && days === 0 && minutes !== 0) {
-      return(`${minutes} мин ${seconds} сек`);
+      return `${minutes} мин ${seconds} сек`;
     }
     if (days === 0 && hours >= 2 && minutes !== 0) {
-      return(`${hours} час ${minutes} мин`);
+      return `${hours} час ${minutes} мин`;
     }
     if (days === 0 && hours !== 0 && minutes !== 0) {
-      return(`${hours} ч ${minutes} мин ${seconds} сек`);
+      return `${hours} ч ${minutes} мин ${seconds} сек`;
     }
     if (days >= 30 && hours !== 0 && minutes !== 0) {
-      return(`${days} д`);
+      return `${days} д`;
     }
     if (days >= 7 && hours !== 0 && minutes !== 0) {
-      return(`${days} д ${hours} ч`);
+      return `${days} д ${hours} ч`;
     }
     if (days !== 0 && hours !== 0 && minutes !== 0) {
-      return(`${days} д ${hours} ч ${minutes} мин`);
+      return `${days} д ${hours} ч ${minutes} мин`;
     }
-  }
+  };
 
   return (
     <>
-   
       <AppContext.Provider
         value={{
           timeDontVape,
@@ -64,7 +66,7 @@ function App() {
           setIsRunning,
           name,
           setName,
-          formatTime
+          formatTime,
         }}
       >
         <Header />
@@ -81,7 +83,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppContext.Provider>
-    
     </>
   );
 }
