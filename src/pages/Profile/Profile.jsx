@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./Profile.module.scss";
 import { AppContext } from "../../App";
 import noAvatar from "../../../public/img/no-avatar2.png";
+import StartButton from "../../components/StartButton/StartButton";
 
-export default function Profile() {
+export default function Profile({handleStart}) {
   const { name, setName } = useContext(AppContext);
-  const { timeDontVape, setTimeDontVape } = useContext(AppContext);
+  const { timeDontVape, setTimeDontVape, isRunning } = useContext(AppContext);
   const [avatar, setAvatar] = useState(noAvatar);
   const [dateStopVape, setDateStopVape] = useState("");
 
@@ -37,7 +38,7 @@ export default function Profile() {
     const savedDateStopVape = localStorage.getItem("DateStopSmoke");
     if (savedDateStopVape) {
       const date = new Date(parseInt(savedDateStopVape, 10));
-      const formattedDate = date.toISOString().slice(0, 16); 
+      const formattedDate = date.toISOString().slice(0, 16);
       setDateStopVape(formattedDate);
     }
   }, []);
@@ -75,19 +76,19 @@ export default function Profile() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           type="text"
-          className={styles.profile__inputName}
+          className={styles.profile__input}
         />
       </form>
-      <form className={styles.profile__form} onSubmit={handleSubmit}>
+      {isRunning && <form className={styles.profile__form} onSubmit={handleSubmit}>
         <label htmlFor="inputDate">Не курю с: </label>
         <input
           id="inputDate"
           type="datetime-local"
           value={dateStopVape}
           onChange={changeDateStopVape}
-          className={styles.profile__inputDate}
+          className={styles.profile__input}
         />
-      </form>
+      </form>}
     </section>
   );
 }

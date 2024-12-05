@@ -30,9 +30,9 @@ export default function Header() {
       )}
       {headerIcon === "back" ? (
         <>
-          <button onClick={()=>setHeaderIcon("menu")} className={styles.header__backBtn}>
+          <button  className={styles.header__backBtn}>
             <Link to="">
-              <span
+              <span onClick={()=>setHeaderIcon("menu")}
                 className={`${
                   styles.header__icon
                 } ${"material-symbols-outlined"}`}

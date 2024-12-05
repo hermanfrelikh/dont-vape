@@ -16,43 +16,49 @@ export default function Statistics() {
   const [stateIVapeWindow, setStateIVapeWindow] = useState(false);
 
   const calculateTimeDontVape = () => {
-    setInterval(() => {
-      intervalIdRef.current = localStorage.getItem("DateStopSmoke");
+    intervalIdRef.current = setInterval(() => {
+      const startTime = localStorage.getItem("DateStopSmoke");
       setTimeDontVape(
-        Math.round((new Date().getTime() - intervalIdRef.current) / 1000)
+        Math.round((new Date().getTime() - startTime) / 1000)
       );
     }, 1000);
   };
+
   useEffect(() => {
-    calculateTimeDontVape();
-  }, []);
+    if (isRunning) {
+      calculateTimeDontVape();
+    }
+    return () => {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
+    };
+  }, [isRunning]);
 
   const handleStart = () => {
+    if (isRunning) {
+      return;
+    }
     if (intervalIdRef.current) {
       clearInterval(intervalIdRef.current);
     }
-    if (localStorage.getItem("DateStopSmoke")) {
-      intervalIdRef.current = localStorage.getItem("DateStopSmoke");
+    const startTime = localStorage.getItem("DateStopSmoke");
+    if (!startTime) {
+      localStorage.setItem("DateStopSmoke", new Date().getTime());
     }
-    if (localStorage.getItem("DateStopSmoke") === null) {
-      intervalIdRef.current = new Date().getTime();
-    }
-    localStorage.setItem("DateStopSmoke", intervalIdRef.current);
-    if (isRunning) {
-      return;
-    } else {
-      setIsRunning(true);
-      localStorage.setItem("isRunning", true);
-      calculateTimeDontVape();
-    }
+    setIsRunning(true);
+    localStorage.setItem("isRunning", true);
+    calculateTimeDontVape();
   };
 
   const handleRestart = () => {
+    if (!isRunning) {
+      return;
+    }
     setStateIVapeWindow(true);
     setTimeDontVape(0);
     formatTime(timeDontVape);
-    intervalIdRef.current = new Date().getTime();
-    localStorage.setItem("DateStopSmoke", intervalIdRef.current);
+    localStorage.setItem("DateStopSmoke", new Date().getTime());
   };
 
   useEffect(() => {
@@ -71,8 +77,8 @@ export default function Statistics() {
 
     for (let i = 1; i < steps.length; i++) {
       const a = () => {
-        previousStepTime = timeDontVape -steps[i-1].time;
-        currentStepTime = steps[i].time - steps[i-1].time;
+        previousStepTime = timeDontVape - steps[i - 1].time;
+        currentStepTime = steps[i].time - steps[i - 1].time;
         setTitleCurrentStep(steps[i].title);
       };
 
@@ -88,6 +94,7 @@ export default function Statistics() {
       setCurrentStep(100);
     }
   };
+
   const interestDontVape = (timeDontVape) => {
     if ((timeDontVape / steps[steps.length - 1].time) * 100 < 100) {
       setFullProgress((timeDontVape / steps[steps.length - 1].time) * 100);
@@ -95,6 +102,7 @@ export default function Statistics() {
       setFullProgress(100);
     }
   };
+
   return (
     <>
       <Hello />
