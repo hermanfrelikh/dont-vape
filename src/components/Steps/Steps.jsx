@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { steps } from "../../data";
 import styles from "./Steps.module.scss";
 import { AppContext } from "../../App";
+import { formatTime } from "../../data";
 
 export default function Steps() {
-  const { timeDontVape, formatTime, isRunning } = useContext(AppContext);
+  const { timeDontVape, isRunning } = useContext(AppContext);
   return (
     <ul className={styles.steps}>
       {steps.map((step) => {

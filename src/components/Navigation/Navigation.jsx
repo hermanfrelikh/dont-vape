@@ -1,48 +1,38 @@
-import { useState } from "react";
 import styles from "./Navigation.module.scss";
 import { Link } from "react-router-dom";
+import { navigationTypes } from "../../data";
+import { useSelector, useDispatch } from "react-redux";
+import { setStateNavigation } from "../../redux/slices/navigationSlice";
 
 export default function Navigation() {
-  const [stateNavigation, setStateNavigation] = useState("statistics");
+  const stateNavigation = useSelector((state) => state.navigation.current);
+  const dispatch = useDispatch();
+  const onClickNavigation = (name) => {
+    dispatch(setStateNavigation(name));
+  };
   return (
     <nav>
       <ul className={styles.navigation}>
-        <Link to="" className={styles.navigation__link}>
-          <li
-            onClick={() => setStateNavigation("statistics")}
-            className={`${
-              stateNavigation === "statistics"
-                ? `${styles.navigation__nav} ${styles.navigation__navActive}`
-                : styles.navigation__nav
-            } `}
-          >
-            Статистика
-          </li>
-        </Link>
-        <Link to="/achievements" className={styles.navigation__link}>
-          <li
-            onClick={() => setStateNavigation("achievements")}
-            className={`${
-              stateNavigation === "achievements"
-                ? `${styles.navigation__nav} ${styles.navigation__navActive}`
-                : styles.navigation__nav
-            } `}
-          >
-            Достижения
-          </li>
-        </Link>
-        <Link to="/blog" className={styles.navigation__link}>
-          <li
-            onClick={() => setStateNavigation("blog")}
-            className={`${
-              stateNavigation === "blog"
-                ? `${styles.navigation__nav} ${styles.navigation__navActive}`
-                : styles.navigation__nav
-            } `}
-          >
-            Блог
-          </li>
-        </Link>
+        {navigationTypes.map((navigationType) => {
+          return (
+            <Link
+              key={navigationType.id}
+              to={navigationType.link}
+              className={styles.navigation__link}
+              onClick={() => onClickNavigation(navigationType.name)}
+            >
+              <li
+                className={`${
+                  stateNavigation === `${navigationType.name}`
+                    ? `${styles.navigation__nav} ${styles.navigation__navActive}`
+                    : styles.navigation__nav
+                } `}
+              >
+                {navigationType.title}
+              </li>
+            </Link>
+          );
+        })}
       </ul>
     </nav>
   );

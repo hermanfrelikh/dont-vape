@@ -8,9 +8,10 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { AppContext } from "../../App";
 import CircularProgressChart from "../../components/CircularProgressChart/CircularProgressChart";
 import { steps } from "../../data";
+import { formatTime } from "../../data";
 
 export default function Statistics() {
-  const { timeDontVape, setTimeDontVape, isRunning, setIsRunning, formatTime } =
+  const { timeDontVape, setTimeDontVape, isRunning, setIsRunning } =
     useContext(AppContext);
   const intervalIdRef = useRef(null);
   const [stateIVapeWindow, setStateIVapeWindow] = useState(false);

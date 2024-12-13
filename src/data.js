@@ -77,3 +77,52 @@ export const steps = [
     time: 90 * 24 * 60 * 60 * 1000,
   }
 ];
+
+export const navigationTypes = [
+  {
+    id: 1,
+    name: "statistics",
+    link: "",
+    title: "Статистика",
+  },
+  {
+    id: 2,
+    name: "achievements",
+    link: "/achievements",
+    title: "Достижения",
+  },
+  {
+    id: 3,
+    name: "blog",
+    link: "/blog",
+    title: "Блог",
+  },
+];
+
+export const formatTime = (time) => {
+  const seconds = time % 60;
+  const minutes = Math.floor((time / 60) % 60);
+  const hours = Math.floor((time / 60 / 60) % 24);
+  const days = Math.floor(time / 60 / 60 / 24);
+  if (minutes === 0 && hours === 0 && days === 0) {
+    return `${seconds} сек`;
+  }
+  if (hours === 0 && days === 0 && minutes !== 0) {
+    return `${minutes} мин ${seconds} сек`;
+  }
+  if (days === 0 && hours >= 2 && minutes !== 0) {
+    return `${hours} час ${minutes} мин`;
+  }
+  if (days === 0 && hours !== 0 && minutes !== 0) {
+    return `${hours} ч ${minutes} мин ${seconds} сек`;
+  }
+  if (days >= 30 && hours !== 0 && minutes !== 0) {
+    return `${days} д`;
+  }
+  if (days >= 7 && hours !== 0 && minutes !== 0) {
+    return `${days} д ${hours} ч`;
+  }
+  if (days !== 0 && hours !== 0 && minutes !== 0) {
+    return `${days} д ${hours} ч ${minutes} мин`;
+  }
+};

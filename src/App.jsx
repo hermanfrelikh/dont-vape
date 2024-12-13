@@ -10,13 +10,14 @@ import Achievements from "./pages/Achievements/Achievements";
 import Settings from "./pages/Settings/Settings";
 import Statistics from "./pages/Statistics/Statistics";
 import { createContext, useEffect, useState } from "react";
+import { setName } from "./redux/slices/nameSlice";
 
 export const AppContext = createContext(0);
 
 function App() {
   const [timeDontVape, setTimeDontVape] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [name, setName] = useState(localStorage.getItem("name") ? localStorage.getItem("name") : "");
+
   useEffect(() => {
     if (localStorage.getItem("isRunning")) {
       setIsRunning(localStorage.getItem("isRunning"));
@@ -28,33 +29,6 @@ function App() {
       setName(savedName);
     }
   }, []);
-  const formatTime = (time) => {
-    const seconds = time % 60;
-    const minutes = Math.floor((time / 60) % 60);
-    const hours = Math.floor((time / 60 / 60) % 24);
-    const days = Math.floor(time / 60 / 60 / 24);
-    if (minutes === 0 && hours === 0 && days === 0) {
-      return `${seconds} сек`;
-    }
-    if (hours === 0 && days === 0 && minutes !== 0) {
-      return `${minutes} мин ${seconds} сек`;
-    }
-    if (days === 0 && hours >= 2 && minutes !== 0) {
-      return `${hours} час ${minutes} мин`;
-    }
-    if (days === 0 && hours !== 0 && minutes !== 0) {
-      return `${hours} ч ${minutes} мин ${seconds} сек`;
-    }
-    if (days >= 30 && hours !== 0 && minutes !== 0) {
-      return `${days} д`;
-    }
-    if (days >= 7 && hours !== 0 && minutes !== 0) {
-      return `${days} д ${hours} ч`;
-    }
-    if (days !== 0 && hours !== 0 && minutes !== 0) {
-      return `${days} д ${hours} ч ${minutes} мин`;
-    }
-  };
 
   return (
     <>
@@ -64,9 +38,6 @@ function App() {
           setTimeDontVape,
           isRunning,
           setIsRunning,
-          name,
-          setName,
-          formatTime,
         }}
       >
         <Header />

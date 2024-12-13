@@ -2,10 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./Profile.module.scss";
 import { AppContext } from "../../App";
 import noAvatar from "../../../public/img/no-avatar2.png";
-import StartButton from "../../components/StartButton/StartButton";
+import { useSelector, useDispatch } from "react-redux";
+import { setName } from "../../redux/slices/nameSlice";
 
-export default function Profile({handleStart}) {
-  const { name, setName } = useContext(AppContext);
+export default function Profile({ handleStart }) {
+  const dispatch = useDispatch();
+  const name = useSelector((state) => state.name.current);
+  const changeName = (name) => {
+    dispatch(setName(name));
+  };
+
   const { timeDontVape, setTimeDontVape, isRunning } = useContext(AppContext);
   const [avatar, setAvatar] = useState(noAvatar);
   const [dateStopVape, setDateStopVape] = useState("");
@@ -74,21 +80,23 @@ export default function Profile({handleStart}) {
           placeholder="Введите имя"
           id="inputName"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => changeName(e.target.value)}
           type="text"
           className={styles.profile__input}
         />
       </form>
-      {isRunning && <form className={styles.profile__form} onSubmit={handleSubmit}>
-        <label htmlFor="inputDate">Не курю с: </label>
-        <input
-          id="inputDate"
-          type="datetime-local"
-          value={dateStopVape}
-          onChange={changeDateStopVape}
-          className={styles.profile__input}
-        />
-      </form>}
+      {isRunning && (
+        <form className={styles.profile__form} onSubmit={handleSubmit}>
+          <label htmlFor="inputDate">Не курю с: </label>
+          <input
+            id="inputDate"
+            type="datetime-local"
+            value={dateStopVape}
+            onChange={changeDateStopVape}
+            className={styles.profile__input}
+          />
+        </form>
+      )}
     </section>
   );
 }
